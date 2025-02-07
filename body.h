@@ -11,4 +11,4 @@ struct body {
   double ax, ay;
 };
 
-#endif BODY_H
+#endif // BODY_H

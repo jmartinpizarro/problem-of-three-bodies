@@ -1,5 +1,6 @@
 #include <iostream>
 #include "raylib.h"
+#include "body.h"
 
 typedef enum SimulationScreen { INTRO, SIMULATION } SimulationScreen;
 
@@ -8,6 +9,10 @@ int main(void) {
     SetTargetFPS(60);
 
     SimulationScreen currentScreen = INTRO;
+
+    body planet1{4.6, 10000, 500, 200, 0, 0, 0, 0};
+    body planet2{3.1, 4000, 750, 750, 0, 0, 0, 0};
+    body planet3{9.8, 50000, 100, 600, 0, 0, 0, 0}; 
 
     while (!WindowShouldClose()) {
         // Update
@@ -46,9 +51,9 @@ int main(void) {
 
           case SIMULATION:
             {
-              DrawCircle(500, 200, 32.0, RED);
-              DrawCircle(750, 750, 48.0, YELLOW);
-              DrawCircle(100, 600, 16.0, BLUE);
+              DrawCircle(planet1.px, planet1.py, 32.0, RED);
+              DrawCircle(planet2.px, planet2.py, 48.0, YELLOW);
+              DrawCircle(planet3.px, planet3.py, 16.0, BLUE);
             } break;
         }
         EndDrawing();
