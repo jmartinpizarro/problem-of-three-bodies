@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cmath>
 #include "raylib.h"
+
 #include "body.h"
+#include "formulas.h"
 
 typedef enum SimulationScreen { INTRO, SIMULATION1, SIMULATION2 } SimulationScreen;
 const int WIDTH = 1000;
 const int HEIGHT = 800;
-
-constexpr double G = 6.67430e-11;
 
 int main(void) {
     InitWindow(WIDTH, HEIGHT, "The Problem of the Three Bodies Simulation");
@@ -28,15 +28,15 @@ int main(void) {
           {
             if (IsKeyPressed(KEY_ONE)){
               
-              planet1 = {4.6, 10000, 500, 400, 0, 0, 0, 0}; // central body
-              planet2 = {3.1, 4000, 600, 600, 0, 0, 0, 0};  // satellite
+              planet1 = {4.6, 10000, 500, 400, 0, 0, 0, 0, 48}; // central body
+              planet2 = {3.1, 4000, 600, 600, 0, 0, 0, 0, 32};  // satellite
 
               currentScreen = SIMULATION1;
             }
             if (IsKeyPressed(KEY_TWO)){ 
-              planet1 = {4.6, 10000, 500, 200, 0, 0, 0, 0};
-              planet2 = {3.1, 4000, 750, 750, 0, 0, 0, 0};
-              planet3 = {9.8, 50000, 100, 600, 0, 0, 0, 0};
+              planet1 = {4.6, 10000, 500, 200, 0, 0, 0, 0, 32};
+              planet2 = {3.1, 4000, 750, 750, 0, 0, 0, 0, 48};
+              planet3 = {9.8, 50000, 100, 600, 0, 0, 0, 0, 16};
               
               currentScreen = SIMULATION2;
             }
@@ -48,13 +48,9 @@ int main(void) {
             if (IsKeyPressed(KEY_Q)){
               currentScreen = INTRO;
             }
-            
-            double a = planet2.px - planet1.px;
-            double b = planet2.py - planet1.px;
 
-            double r = sqrt(pow(a, 2) + pow(b, 2));
-
-            std::cout << r;
+            double r = calcOrbit(planet1, planet2);
+            std::cout << r << "\n";
 
           } break;
 
@@ -82,15 +78,15 @@ int main(void) {
 
            case SIMULATION1:
             {
-              DrawCircle(planet1.px, planet1.py, 48.0, RED);
-              DrawCircle(planet2.px, planet2.py, 32.0, YELLOW);
+              DrawCircle(planet1.px, planet1.py, planet1.radius, RED);
+              DrawCircle(planet2.px, planet2.py, planet2.radius, YELLOW);
             } break;
 
           case SIMULATION2:
             {
-              DrawCircle(planet1.px, planet1.py, 32.0, RED);
-              DrawCircle(planet2.px, planet2.py, 48.0, YELLOW);
-              DrawCircle(planet3.px, planet3.py, 16.0, BLUE);
+              DrawCircle(planet1.px, planet1.py, planet1.radius, RED);
+              DrawCircle(planet2.px, planet2.py, planet2.radius, YELLOW);
+              DrawCircle(planet3.px, planet3.py, planet3.radius, BLUE);
             } break;
         }
         EndDrawing();
