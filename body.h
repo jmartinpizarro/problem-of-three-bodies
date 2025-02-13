@@ -9,6 +9,7 @@ struct body {
   double px, py;
   double vx, vy;
   double ax, ay;
+  int radius;
 };
 
 struct node { // used for saving a pair of positions
