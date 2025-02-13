@@ -49,8 +49,9 @@ int main(void) {
               currentScreen = INTRO;
             }
 
-            double r = calcOrbit(planet1, planet2);
-            std::cout << r << "\n";
+            velocityVector velocity = calcOrbitalVelocity(planet1, planet2);
+            std::cout << velocity.velocity << "\n";
+            std::cout << velocity.vVector << "\n";
 
           } break;
 
